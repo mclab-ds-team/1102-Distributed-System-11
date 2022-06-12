@@ -1,10 +1,12 @@
 import json
 import time
+import random
+import sys
 
 from kafka import KafkaProducer
 
-ORDER_KAFKA_TOPIC = "order_details"
-ORDER_LIMIT = 5
+ORDER_KAFKA_TOPIC = "orders"
+ORDER_LIMIT = 10
 
 producer = KafkaProducer(bootstrap_servers="localhost:29092")
 
@@ -15,15 +17,17 @@ producer = KafkaProducer(bootstrap_servers="localhost:29092")
 for i in range(1, ORDER_LIMIT):
     data = {
         "order_id": i,
-        "user_id": f"tom_{i}",
+        "e-mail": f"tom_{i}",
         "price": i * 5,
         "items": "burger,sandwich",
         "food":{
             "burger": 3,
+            "sandwich": 5,
             "cola": 1
         }
     }
-
-    producer.send(ORDER_KAFKA_TOPIC, json.dumps(data).encode("utf-8"))
+    a = random.randint(0,int(sys.argv[1]))
+    print(a)
+    producer.send(ORDER_KAFKA_TOPIC, json.dumps(data).encode("utf-8"), partition=a)
     print(f"Done Sending..{i}")
     time.sleep(10)

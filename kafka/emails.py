@@ -27,7 +27,7 @@ print("Gonna start listening")
 while True:
 	for message in consumer:
 		consumed_message = json.loads(message.value.decode())
-		content.attach(MIMEText(f"你的訂單編號為 {consumed_message['order_id']}\n漢堡{consumed_message['food']['burger']}個、\n三明治{consumed_message['food']['sandwich']}個、\n可樂{consumed_message['food']['cola']}罐\n總共為{consumed_message['price']}元"))  #郵件內容
+		content.attach(MIMEText(f"你的訂單編號為 {consumed_message['order_id']}\n取餐門市為{consumed_message['position']}\n漢堡{consumed_message['food']['burger']}個、\n三明治{consumed_message['food']['sandwich']}個、\n可樂{consumed_message['food']['cola']}罐\n總共為{consumed_message['price']}元"))  #郵件內容
 		customer_email = consumed_message["e-mail"]
 		content["to"] = customer_email #收件者
 
