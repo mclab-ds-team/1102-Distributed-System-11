@@ -36,7 +36,7 @@ while True:
 			try:
 				smtp.ehlo()  # 驗證SMTP伺服器
 				smtp.starttls()  # 建立加密傳輸
-				smtp.login("zard102232@gmail.com", "cwvyiyhwgguroamf")  # 登入寄件者gmail
+				smtp.login("email here", "verification")  # 登入寄件者gmail
 				smtp.send_message(content)  # 寄送郵件
 				content = MIMEMultipart()
 				content["subject"] = "Food service"  #郵件標題

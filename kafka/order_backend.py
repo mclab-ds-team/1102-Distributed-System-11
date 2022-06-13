@@ -19,7 +19,7 @@ for i in range(1, ORDER_LIMIT):
         "order_id": i,
         "e-mail": f"tom_{i}",
         "price": i * 5,
-        "items": "burger,sandwich",
+        "position": "政大",
         "food":{
             "burger": 3,
             "sandwich": 5,

@@ -1,18 +1,14 @@
 import json
-import sys
-import random
 
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
-from kafka import TopicPartition
 
 
 ORDER_KAFKA_TOPIC = "orders"
 ORDER_CONFIRMED_KAFKA_TOPIC = "order_confirmed"
 
-consumer = KafkaConsumer(bootstrap_servers="localhost:29092")
-
-consumer.assign([TopicPartition(ORDER_KAFKA_TOPIC, int(sys.argv[1]))])
+consumer = KafkaConsumer(group_id='order_group', bootstrap_servers="localhost:29092")
+consumer.subscribe([ORDER_KAFKA_TOPIC])
 
 producer = KafkaProducer(bootstrap_servers="localhost:29092")
 
@@ -30,7 +26,7 @@ while True:
             "order_id": user_id,
             "e-mail": consumed_message['e-mail'],
             "price": total_cost,
-            "position": consumed_message['position'],
+            "position": consumed_message["position"],
             "food": {
                 "burger": consumed_message['food']['burger'],
                 "sandwich": consumed_message['food']['sandwich'],
